@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Weather</title>
+	 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			$("#submitButton").on("click", function(){
+				var cityName = $("#cityName").val();
+				var html = "";
+				$.getJSON("http://api.openweathermap.org/data/2.5/weather?q="+cityName+"&units=metric&APPID=16e91ad9a27e24c68093026192ea1fc2",function(json){
+					var keys = Object.keys(json);
+					html += "<strong class='weatherAtt'>Temperature:</strong>"+ json.main.temp + "&deg;C" + "<br>" + "<strong class='weatherAtt'>Description: </strong>" + json.weather[0].description + "<br>" + "<img src = http://openweathermap.org/img/w/"+ json.weather[0].icon + ".png>";
+					$(".answer").html(html);
+				});
+			});
+
+		});
+		</script>
+
+		<link rel = "stylesheet" type = "text/css" href = "styles.css"/>
+	</head>
+
+
+	<body>
+		<h3>Please enter the city name.</h3>
+		<input id = "cityName" type = "text"> <br>
+		<input id = "submitButton" type = "button" value = "Submit">
+		<div class = "answer">----</div>
+	</body>
+</html>
